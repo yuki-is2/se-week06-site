@@ -1,5 +1,440 @@
-<!doctype html>
-<meta charset="utf-8">
-<title>自己紹介</title>
-<h1>自己紹介</h1>
-<p>授業で作成したページです。</p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己紹介</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --primary-color: #4f46e5;
+            --secondary-color: #6b7280;
+            --card-bg: #ffffff;
+            --border-color: #e5e7eb;
+            --max-width: 800px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0f172a;
+                --text-color: #f1f5f9;
+                --primary-color: #818cf8;
+                --secondary-color: #94a3b8;
+                --card-bg: #1e293b;
+                --border-color: #334155;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.7;
+            padding-top: 60px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            backdrop-filter: blur(8px);
+            background-color: rgba(from var(--card-bg) r g b / 0.8);
+        }
+
+        nav {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 60px;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Layout Container */
+        main {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        section:last-child {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 24px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .profile-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h3 {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: var(--primary-color);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-list li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            padding-left: 1em;
+        }
+
+        /* Works Section */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .work-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .work-img-placeholder {
+            height: 140px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            opacity: 0.15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .work-img-placeholder svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--text-color);
+        }
+
+        .work-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .work-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .work-info p {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 16px;
+        }
+
+        .work-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: var(--border-color);
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* Reflection Section */
+        .reflection-content {
+            background-color: var(--card-bg);
+            padding: 24px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .reflection-content p {
+            margin-bottom: 16px;
+        }
+
+        .reflection-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Smartphone Optimization */
+        @media (max-width: 600px) {
+            body {
+                padding-top: 50px;
+            }
+            nav {
+                height: 50px;
+                padding: 0 16px;
+            }
+            .nav-links {
+                gap: 12px;
+            }
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+            section {
+                padding: 40px 0;
+            }
+            h2 {
+                font-size: 1.6rem;
+                margin-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <a href="#" class="logo">Portfolio</a>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#works">Works</a></li>
+                <li><a href="#reflection">Reflection</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- About Section -->
+        <section id="about">
+            <h2>About</h2>
+            <div class="about-content">
+                <p class="profile-title">学業について / Developer.</p>
+                <p>
+                    私は今、情報系の勉強をしています。ネットワーク系や大規模LLMなどに興味関心があります。最近は課題やレポート、授業内容が難しくなってきたため、アルバイトやサークルとの両立に苦戦しています。               </p>
+                <p>
+                    このページは、外部のライブラリや画像に頼らず、軽量かつレスポンシブに動作するよう1ファイルのHTMLで作成されています。
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills">
+            <h2>Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Frontend</h3>
+                    <ul class="skill-list">
+                        <li>HTML5 / CSS3</li>
+                        <li>JavaScript (ES6+)</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Design / Tools</h3>
+                    <ul class="skill-list">
+                        <li>UI/UX Design</li>
+                        <li>Git / GitHub</li>
+                        <li>VS Code</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Mindset</h3>
+                    <ul class="skill-list">
+                        <li>アクセシビリティ意識</li>
+                        <li>パフォーマンス最適化</li>
+                        <li>ドキュメント作成</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works Section -->
+        <section id="works">
+            <h2>Works</h2>
+            <div class="works-grid">
+                <div class="work-card">
+                    <div class="work-img-placeholder">
+                        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    </div>
+                    <div class="work-info">
+                        <div>
+                            <h3>静的Webサイトパッケージ</h3>
+                            <p>外部リソース非依存で高速に動作する、シンプルでミニマルなテンプレートの構築。</p>
+                        </div>
+                        <div class="work-tags">
+                            <span class="tag">HTML</span>
+                            <span class="tag">CSS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div class="work-img-placeholder">
+                        <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>
+                    </div>
+                    <div class="work-info">
+                        <div>
+                            <h3>タスク管理ツール (プロトタイプ)</h3>
+                            <p>ブラウザのローカルストレージを活用した、ログイン不要で手軽に使える軽量ToDoアプリ。</p>
+                        </div>
+                        <div class="work-tags">
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">CSS Grid</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reflection Section -->
+        <section id="reflection">
+            <h2>Reflection</h2>
+            <div class="reflection-content">
+                <p>
+                    <strong>これまでの振り返り</strong><br>
+                    今回授業でWebサイトの作成を行いました。VSCode、GitHub、GitHub Desktopを使用し、commit、push、pullを駆使して作成を行いました。
+                </p>
+                <p>
+                    <strong>今後の展望</strong><br>
+                    今後はデザインシステムの標準化や、より幅広いユーザー（支援技術を利用する層など）に配慮した包括的なWeb制作への理解を深めていきたいと考えています。常に基本を忘れず、新しい技術に対しても本質を見極めながら柔軟に取り入れていく姿勢を大切にしていきます。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Portfolio. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        // Smooth Active Navigation Link Highlight on Scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (pageYOffset >= (sectionTop - 80)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.style.color = '';
+                    if (link.getAttribute('href').includes(current) && current !== '') {
+                        link.style.color = 'var(--primary-color)';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
